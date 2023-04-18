@@ -1,14 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { useEffect } from 'react'
 import * as actionCreators from '../state/action-creators'
 
-export function Form(props) {
 
-  const onChange = evt => {
+export function Form(props) {
+  console.log(props)
+  useEffect(() => {
+    props.fetchQuiz();
+  },[])
+
+  const onChange = evt => { 
+    // const newQuestion = evt.targe.value
+    // setSate({ 
+    //   ...state,
+    //   question: question
+    // })
 
   }
 
-  const onSubmit = evt => {
+  const onSubmit = evt => { 
+   
 
   }
 
@@ -23,4 +35,8 @@ export function Form(props) {
   )
 }
 
-export default connect(st => st, actionCreators)(Form)
+const mapStateToProps = (store) => {
+return store
+}
+
+export default connect(mapStateToProps, actionCreators)(Form)
