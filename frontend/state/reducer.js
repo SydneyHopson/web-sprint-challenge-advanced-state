@@ -1,64 +1,61 @@
 // ❗ You don't need to add extra reducers to achieve MVP
 
 import { combineReducers } from 'redux'
-import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from './action-types'
-
-
+import {MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER, SET_INFO_MESSAGE, INPUT_CHANGE, RESET_FORM} from './action-types';
 
 const initialWheelState = 0
 function wheel(state = initialWheelState, action) {
-  switch(action.type){
+  switch (action.type) {
     case MOVE_CLOCKWISE:
-      console.log("im here")
-      return state + 1
-      break;
+      return state === 5 ? 0 : state + 1;
     case MOVE_COUNTERCLOCKWISE:
-      console.log('here 2')
-      return state - 1
-       
-      
-}
-  return state
-}
+      return state === 0 ? 5 : state - 1;
+    default:
+      return state;
+  }}
 
 const initialQuizState = null
 function quiz(state = initialQuizState, action) {
-  switch(action.type){
-
-  
+  switch (action.type) {
+    case SET_QUIZ_INTO_STATE:
+      return action.payload;
+    default:
+      return state
+  }
 }
-return state
-}
-
 const initialSelectedAnswerState = null
 function selectedAnswer(state = initialSelectedAnswerState, action) {
-  switch(action.type){
-
+  switch (action.type) {
+    case SET_SELECTED_ANSWER:
+      return action.payload;
+    default:
+      return state
   }
-  return state
 }
-
-
 const initialMessageState = ''
 function infoMessage(state = initialMessageState, action) {
-  switch(action.type){
-
+  switch (action.type) {
+    case SET_INFO_MESSAGE:
+      return action.payload;
+    default:
+      return state
   }
-  return state
 }
-
-
 const initialFormState = {
   newQuestion: '',
   newTrueAnswer: '',
   newFalseAnswer: '',
 }
 function form(state = initialFormState, action) {
-  switch(action.type) {
-
+  switch (action.type) {
+    case INPUT_CHANGE:
+      console.log(action)
+      return {...state, ...action.payload};
+    case RESET_FORM:
+      return initialFormState;
+    default:
+      return state;
   }
-  return state
-}
+};
 
-
-export default combineReducers({ wheel: wheel, quiz: quiz, selectedAnswer: selectedAnswer , infoMessage: infoMessage, form: form })
+export default combineReducers({ wheel: wheel, quiz: quiz, selectedAnswer, infoMessage: infoMessage, form: form });
